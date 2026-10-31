@@ -1,0 +1,5 @@
+# Runtime. Install the package itself with: pip install -e .
+ultralytics>=8.3
+numpy
+pyyaml
+opencv-python-headless
