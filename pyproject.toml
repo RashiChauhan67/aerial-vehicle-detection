@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aerial-vehicle-detection"
+version = "0.1.0"
+description = "YOLOv8 vehicle detection and classification in aerial drone imagery"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Rashi Chauhan" }]
+requires-python = ">=3.10"
+dependencies = [
+    "ultralytics>=8.3",
+    "numpy",
+    "pyyaml",
+    "opencv-python-headless",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+extend-exclude = ["notebooks"]  # original notebooks are kept unmodified
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
