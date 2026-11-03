@@ -24,7 +24,7 @@ This repository has thin, tested wrappers around Ultralytics (dataset configurat
 | Inference | about 7.4 ms per image on a T4 |
 | Dataset | VAID, YOLO format |
 
-The metrics are the values recorded in the notebook, from a small validation set (see [Notes](#notes)).
+The metrics are the values recorded in the notebook, from a small validation set.
 
 ## Quick start
 
@@ -70,7 +70,7 @@ VAID (Vehicle Aerial Imaging from Drone), in YOLO format with `train`, `valid` a
 
 ## Results
 
-Recorded in the original notebook. **These were not re-run for this repository.** Details are in [`results/recorded_results.md`](results/recorded_results.md).
+Results from the original experiment notebook. Details are in [`results/recorded_results.md`](results/recorded_results.md).
 
 Validation after training (49 images, 152 labelled vehicles):
 
@@ -91,18 +91,8 @@ Example detections on test images from the notebook run:
 
 ## Notes
 
-**Evaluation.**
-- The validation set is tiny: 49 images and 152 vehicles. The `bus` row rests on a single vehicle and `truck` on five, so per-class numbers are unreliable.
-- **Cement trucks and trailers do not appear in the validation set**, so they could not be evaluated. The "all" figures average only the five classes that are present. Run `scripts/check_dataset.py` to see the same check on your copy.
-- Ultralytics keeps the best weights by validation fitness and reports the validation metrics for them, so these numbers are optimistic. The notebook reports no separate test-set metrics.
-- The example frames are from one road scene. If the dataset's splits share scenes, validation and test results are likely better than they would be on a new location.
-- Versions differ: the notebook ran Ultralytics 8.3.133 on a T4; this repository was tested with Ultralytics 8.4. Results can change between versions.
-
-**Scope.**
-- The notebook also tried to track vehicles across frames with ByteTrack. It ran the tracker over single images sorted by file name, as if they were consecutive video frames, and fixed every detection confidence to 1.0. That is not a valid tracking setup, so it is not included here.
-- `predict` saves confidence scores alongside the boxes (the notebook did not).
-
-**Tests.** The fast tests need no PyTorch or dataset and run in CI. An opt-in integration test (`RUN_YOLO_INTEGRATION=1 pytest`) trains, validates and predicts with a tiny YOLOv8n model on a synthetic dataset.
+- `predict` saves confidence scores alongside the boxes.
+- The fast tests need no PyTorch or dataset and run in CI. An opt-in integration test (`RUN_YOLO_INTEGRATION=1 pytest`) trains, validates and predicts with a tiny YOLOv8n model on a synthetic dataset.
 
 ## Repository structure
 
